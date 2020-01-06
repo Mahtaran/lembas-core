@@ -1,0 +1,85 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath "gradle.plugin.de.set.gradle:gradle-eclipse-compiler-plugin:1.4.1"
+    }
+}
+
+apply plugin: 'forge'
+apply plugin: "de.set.ecj"
+
+version = version
+group= "lembas"
+archivesBaseName = "lembas-core"
+
+srcCompat = JavaVersion.VERSION_1_8
+targetCompat = JavaVersion.VERSION_1_8
+
+minecraft {
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "run"
+
+    replaceIn "src/main/java/lembas/core/api/LembasCore.java"
+    replace "@version@", version
+}
+
+configurations {
+    exports
+}
+
+dependencies {
+    exports 'io.github.lukehutch:fast-classpath-scanner:2.21'
+    configurations.compile.extendsFrom(configurations.exports)
+}
+
+jar {
+    from('./') {
+        include 'CHANGELOG.md'
+        include 'LICENSE'
+    }
+
+    from {
+        configurations.exports.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/**"
+        exclude "META-INF/*"
+    }
+
+    manifest {
+        attributes 'FMLCorePlugin': 'lembas.core.internal.common.core.LembasCoreCore'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

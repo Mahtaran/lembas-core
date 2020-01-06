@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lembas-core",
+  "name": "Lembas Core",
+  "description": "The core utilities of the server-side Lembas Modding platform. The mod is licensed under the LGPL 3.0 - a copy of the license can be found in the mod's JAR file.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Lembas-Modding-Team",
+  "updateUrl": "",
+  "authorList": ["Crafted_Mods a.k.a. Malvegil", "Mahtaran", "Vinyarion"],
+  "credits": "VulcanForge and AlteOgre",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
