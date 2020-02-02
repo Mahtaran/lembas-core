@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2019 Lembas Modding Team
+ * Copyright (C) 2019-2020 Lembas Modding Team
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,7 +17,7 @@
 package lembas.core.internal.common;
 
 import cpw.mods.fml.common.event.*;
-import lembas.core.api.common.LembasCoreCommon;
+import lembas.core.api.common.*;
 
 /*
  * The implementation of the common proxy
@@ -25,9 +25,11 @@ import lembas.core.api.common.LembasCoreCommon;
 public class LembasCoreCommonImpl implements LembasCoreCommon
 {
 
+    protected SimpleLogger logger;
+
     public void onPreInit (FMLPreInitializationEvent event)
     {
-
+        logger = new SimpleLoggerImpl (event.getModLog ());
     }
 
     public void onInit (FMLInitializationEvent event)
@@ -37,11 +39,18 @@ public class LembasCoreCommonImpl implements LembasCoreCommon
 
     public void onPostInit (FMLPostInitializationEvent event)
     {
-        
+
     }
-    
-    public void onLoadingComplete(FMLLoadCompleteEvent event) {
-        
+
+    public void onLoadingComplete (FMLLoadCompleteEvent event)
+    {
+
+    }
+
+    @Override
+    public SimpleLogger getLogger ()
+    {
+        return logger;
     }
 
 }

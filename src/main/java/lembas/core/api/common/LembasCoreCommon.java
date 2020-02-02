@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2019 Lembas Modding Team
+ * Copyright (C) 2019-2020 Lembas Modding Team
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -22,5 +22,13 @@ package lembas.core.api.common;
  */
 public interface LembasCoreCommon
 {
+
+    /**
+     * Returns the main logger used by Lembas Core. In most cases modules and so on
+     * should use their own logger instance.
+     * 
+     * @return The main logger
+     */
+    public SimpleLogger getLogger ();
 
 }

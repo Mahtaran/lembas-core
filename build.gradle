@@ -44,6 +44,8 @@ configurations {
 dependencies {
     exports 'io.github.lukehutch:fast-classpath-scanner:2.21'
     configurations.compile.extendsFrom(configurations.exports)
+    
+    testImplementation('junit:junit:4.13')
 }
 
 jar {
@@ -59,10 +61,6 @@ jar {
         exclude "META-INF/*"
     }
 
-    manifest {
-        attributes 'FMLCorePlugin': 'lembas.core.internal.common.core.LembasCoreCore'
-        attributes 'FMLCorePluginContainsFMLMod': 'true'
-    }
 }
 
 processResources {
