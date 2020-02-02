@@ -2,10 +2,10 @@ sudo: false
 
 language: java
 
-dist: precise
+dist: xenial
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 install: ./gradlew --version
 
