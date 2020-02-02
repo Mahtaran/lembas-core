@@ -16,14 +16,16 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
         classpath "gradle.plugin.de.set.gradle:gradle-eclipse-compiler-plugin:1.4.1"
+        classpath "net.minecrell.licenser:net.minecrell.licenser.gradle.plugin:0.+"
     }
 }
 
 apply plugin: 'forge'
 apply plugin: "de.set.ecj"
+apply plugin: "net.minecrell.licenser"
 
 version = version
-group= "lembas"
+group = "lembas"
 archivesBaseName = "lembas-core"
 
 srcCompat = JavaVersion.VERSION_1_8
@@ -81,3 +83,14 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+license {
+	header = project.file('LICENSE-HEADER.txt')
+
+	ext {
+		year = Calendar.getInstance().get(Calendar.YEAR)
+	}
+
+	include '**/*.java'
+}
+compileJava.dependsOn updateLicenses
